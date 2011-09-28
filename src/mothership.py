@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 import json
 import web
+import sys
+
+sys.path.append('models')
+from users import User
 
 urls = ("/users/(\w+).*", "Users",
         "/events/(\w+).*", "Events",
         "/calendars/(\w+).*", "Calendars")
 app = web.application(urls, globals())
-
 
 class BaseResponse(object):
     def __init__(self):
@@ -49,6 +52,8 @@ class Users(BaseResponse):
         getattr(self, method)(post_data)
 
     def create(self, obj):
+        user = User()
+        return user
         pass
 
     def retrieve(self):
